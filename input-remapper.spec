@@ -7,7 +7,7 @@
 #
 Name     : input-remapper
 Version  : input.mapper.2.0.0
-Release  : 1
+Release  : 2
 URL      : https://github.com/sezanzeb/input-remapper/archive/2.0.0/input-mapper-2.0.0.tar.gz
 Source0  : https://github.com/sezanzeb/input-remapper/archive/2.0.0/input-mapper-2.0.0.tar.gz
 Summary  : No detailed summary available
@@ -20,6 +20,9 @@ Requires: input-remapper-license = %{version}-%{release}
 Requires: input-remapper-python = %{version}-%{release}
 Requires: input-remapper-python3 = %{version}-%{release}
 Requires: input-remapper-services = %{version}-%{release}
+Requires: pypi(evdev)
+Requires: pypi(pydantic)
+Requires: pypi(pydantic_core)
 BuildRequires : buildreq-distutils3
 BuildRequires : pypi(evdev)
 BuildRequires : pypi(pydantic)
@@ -107,7 +110,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1708554971
+export SOURCE_DATE_EPOCH=1708558233
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
