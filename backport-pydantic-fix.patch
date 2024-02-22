@@ -1,0 +1,129 @@
+From 1ee15f86aff83844a359227b12163db915af2eeb Mon Sep 17 00:00:00 2001
+From: Stanislav Zhuk <stasadev@gmail.com>
+Date: Mon, 18 Sep 2023 21:41:01 +0300
+Subject: [PATCH] Try to use pydantic v2, and then pydantic v1 on fail
+
+---
+ inputremapper/configs/input_config.py |  6 ++++-
+ inputremapper/configs/mapping.py      | 39 ++++++++++++++++++---------
+ inputremapper/configs/preset.py       |  5 +++-
+ tests/unit/test_injector.py           |  5 +++-
+ tests/unit/test_mapping.py            |  6 ++++-
+ 5 files changed, 45 insertions(+), 16 deletions(-)
+
+diff --git a/inputremapper/configs/input_config.py b/inputremapper/configs/input_config.py
+index 1f1868b55..8d0e83844 100644
+--- a/inputremapper/configs/input_config.py
++++ b/inputremapper/configs/input_config.py
+@@ -25,7 +25,11 @@
+ from evdev import ecodes
+ 
+ from inputremapper.input_event import InputEvent
+-from pydantic import BaseModel, root_validator, validator
++
++try:
++    from pydantic.v1 import BaseModel, root_validator, validator
++except ImportError:
++    from pydantic import BaseModel, root_validator, validator
+ 
+ from inputremapper.configs.system_mapping import system_mapping
+ from inputremapper.gui.messages.message_types import MessageType
+diff --git a/inputremapper/configs/mapping.py b/inputremapper/configs/mapping.py
+index f9b31549a..f98c320d3 100644
+--- a/inputremapper/configs/mapping.py
++++ b/inputremapper/configs/mapping.py
+@@ -33,18 +33,33 @@
+     REL_HWHEEL_HI_RES,
+     REL_WHEEL_HI_RES,
+ )
+-from pydantic import (
+-    BaseModel,
+-    PositiveInt,
+-    confloat,
+-    conint,
+-    root_validator,
+-    validator,
+-    ValidationError,
+-    PositiveFloat,
+-    VERSION,
+-    BaseConfig,
+-)
++
++try:
++    from pydantic.v1 import (
++        BaseModel,
++        PositiveInt,
++        confloat,
++        conint,
++        root_validator,
++        validator,
++        ValidationError,
++        PositiveFloat,
++        VERSION,
++        BaseConfig,
++    )
++except ImportError:
++    from pydantic import (
++        BaseModel,
++        PositiveInt,
++        confloat,
++        conint,
++        root_validator,
++        validator,
++        ValidationError,
++        PositiveFloat,
++        VERSION,
++        BaseConfig,
++    )
+ 
+ from inputremapper.configs.input_config import InputCombination
+ from inputremapper.configs.system_mapping import system_mapping, DISABLE_NAME
+diff --git a/inputremapper/configs/preset.py b/inputremapper/configs/preset.py
+index 92d444286..dbf73dedf 100644
+--- a/inputremapper/configs/preset.py
++++ b/inputremapper/configs/preset.py
+@@ -36,7 +36,10 @@
+     overload,
+ )
+ 
+-from pydantic import ValidationError
++try:
++    from pydantic.v1 import ValidationError
++except ImportError:
++    from pydantic import ValidationError
+ 
+ from inputremapper.configs.input_config import InputCombination, InputConfig
+ from inputremapper.configs.mapping import Mapping, UIMapping
+diff --git a/tests/unit/test_injector.py b/tests/unit/test_injector.py
+index c912d3da2..b04e2dce8 100644
+--- a/tests/unit/test_injector.py
++++ b/tests/unit/test_injector.py
+@@ -18,7 +18,10 @@
+ # You should have received a copy of the GNU General Public License
+ # along with input-remapper.  If not, see <https://www.gnu.org/licenses/>.
+ 
+-from pydantic import ValidationError
++try:
++    from pydantic.v1 import ValidationError
++except ImportError:
++    from pydantic import ValidationError
+ 
+ from inputremapper.input_event import InputEvent
+ from tests.lib.global_uinputs import (
+diff --git a/tests/unit/test_mapping.py b/tests/unit/test_mapping.py
+index a832e7a48..2c5bfb227 100644
+--- a/tests/unit/test_mapping.py
++++ b/tests/unit/test_mapping.py
+@@ -30,7 +30,11 @@
+     REL_WHEEL_HI_RES,
+     KEY_1,
+ )
+-from pydantic import ValidationError
++
++try:
++    from pydantic.v1 import ValidationError
++except ImportError:
++    from pydantic import ValidationError
+ 
+ from inputremapper.configs.mapping import Mapping, UIMapping
+ from inputremapper.configs.system_mapping import system_mapping, DISABLE_NAME

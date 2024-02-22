@@ -6,10 +6,10 @@
 # autospec commit: da8b975a5699
 #
 Name     : input-remapper
-Version  : input.mapper.2.0.0
-Release  : 2
-URL      : https://github.com/sezanzeb/input-remapper/archive/2.0.0/input-mapper-2.0.0.tar.gz
-Source0  : https://github.com/sezanzeb/input-remapper/archive/2.0.0/input-mapper-2.0.0.tar.gz
+Version  : 2.0.0
+Release  : 3
+URL      : https://github.com/sezanzeb/input-remapper/archive/2.0.0/input-remapper-2.0.0.tar.gz
+Source0  : https://github.com/sezanzeb/input-remapper/archive/2.0.0/input-remapper-2.0.0.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-3.0
@@ -30,6 +30,7 @@ BuildRequires : pypi(setuptools)
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
+Patch1: backport-pydantic-fix.patch
 
 %description
 <p align="center"><img src="data/input-remapper.svg" width=100/></p>
@@ -104,13 +105,14 @@ services components for the input-remapper package.
 %prep
 %setup -q -n input-remapper-2.0.0
 cd %{_builddir}/input-remapper-2.0.0
+%patch -P 1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1708558233
+export SOURCE_DATE_EPOCH=1708560287
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -146,7 +148,7 @@ LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/input-remapper
-cp %{_builddir}/input-remapper-2.0.0/LICENSE %{buildroot}/usr/share/package-licenses/input-remapper/31a3d460bb3c7d98845187c716a30db81c44b615 || :
+cp %{_builddir}/input-remapper-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/input-remapper/31a3d460bb3c7d98845187c716a30db81c44b615 || :
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
