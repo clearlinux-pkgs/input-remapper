@@ -7,7 +7,7 @@
 #
 Name     : input-remapper
 Version  : 2.0.0
-Release  : 3
+Release  : 4
 URL      : https://github.com/sezanzeb/input-remapper/archive/2.0.0/input-remapper-2.0.0.tar.gz
 Source0  : https://github.com/sezanzeb/input-remapper/archive/2.0.0/input-remapper-2.0.0.tar.gz
 Summary  : No detailed summary available
@@ -23,9 +23,11 @@ Requires: input-remapper-services = %{version}-%{release}
 Requires: pypi(evdev)
 Requires: pypi(pydantic)
 Requires: pypi(pydantic_core)
+Requires: pypi(pydbus)
 BuildRequires : buildreq-distutils3
 BuildRequires : pypi(evdev)
 BuildRequires : pypi(pydantic)
+BuildRequires : pypi(pydbus)
 BuildRequires : pypi(setuptools)
 # Suppress stripping binaries
 %define __strip /bin/true
@@ -87,6 +89,7 @@ Group: Default
 Requires: python3-core
 Requires: pypi(evdev)
 Requires: pypi(pydantic)
+Requires: pypi(pydbus)
 Requires: pypi(setuptools)
 
 %description python3
@@ -112,7 +115,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1708560287
+export SOURCE_DATE_EPOCH=1708561108
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib

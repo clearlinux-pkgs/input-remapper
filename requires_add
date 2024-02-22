@@ -3,3 +3,4 @@
 pypi(evdev)
 pypi(pydantic)
 pypi(pydantic_core)
+pypi(pydbus)
