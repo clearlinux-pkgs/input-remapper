@@ -1,0 +1,27 @@
+From 00180a398fd2f71616242360250f923e01e8d13b Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Wed, 21 Feb 2024 17:02:02 -0800
+Subject: [PATCH] Move config files from /etc to /usr/share
+
+---
+ setup.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index e34960652bba..8dc17fbe0448 100644
+--- a/setup.py
++++ b/setup.py
+@@ -121,8 +121,8 @@ setup(
+         ),
+         ("/usr/share/polkit-1/actions/", ["data/input-remapper.policy"]),
+         ("/usr/lib/systemd/system", ["data/input-remapper.service"]),
+-        ("/etc/dbus-1/system.d/", ["data/inputremapper.Control.conf"]),
+-        ("/etc/xdg/autostart/", ["data/input-remapper-autoload.desktop"]),
++        ("/usr/share/dbus-1/system.d/", ["data/inputremapper.Control.conf"]),
++        ("/usr/share/xdg/autostart/", ["data/input-remapper-autoload.desktop"]),
+         ("/usr/lib/udev/rules.d", ["data/99-input-remapper.rules"]),
+         ("/usr/bin/", ["bin/input-remapper-gtk"]),
+         ("/usr/bin/", ["bin/input-remapper-service"]),
+-- 
+2.43.2
+

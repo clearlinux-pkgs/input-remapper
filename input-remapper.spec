@@ -7,7 +7,7 @@
 #
 Name     : input-remapper
 Version  : 2.0.0
-Release  : 4
+Release  : 5
 URL      : https://github.com/sezanzeb/input-remapper/archive/2.0.0/input-remapper-2.0.0.tar.gz
 Source0  : https://github.com/sezanzeb/input-remapper/archive/2.0.0/input-remapper-2.0.0.tar.gz
 Summary  : No detailed summary available
@@ -32,7 +32,8 @@ BuildRequires : pypi(setuptools)
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
-Patch1: backport-pydantic-fix.patch
+Patch1: 0001-Move-config-files-from-etc-to-usr-share.patch
+Patch2: backport-pydantic-fix.patch
 
 %description
 <p align="center"><img src="data/input-remapper.svg" width=100/></p>
@@ -109,13 +110,14 @@ services components for the input-remapper package.
 %setup -q -n input-remapper-2.0.0
 cd %{_builddir}/input-remapper-2.0.0
 %patch -P 1 -p1
+%patch -P 2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1708561108
+export SOURCE_DATE_EPOCH=1708563827
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -174,6 +176,7 @@ echo ----[ mark ]----
 %files data
 %defattr(-,root,root,-)
 /usr/share/applications/input-remapper-gtk.desktop
+/usr/share/dbus-1/system.d/inputremapper.Control.conf
 /usr/share/input-remapper/99-input-remapper.rules
 /usr/share/input-remapper/input-remapper-autoload.desktop
 /usr/share/input-remapper/input-remapper-gtk.desktop
@@ -199,6 +202,7 @@ echo ----[ mark ]----
 /usr/share/input-remapper/style.css
 /usr/share/metainfo/io.github.sezanzeb.input_remapper.metainfo.xml
 /usr/share/polkit-1/actions/input-remapper.policy
+/usr/share/xdg/autostart/input-remapper-autoload.desktop
 
 %files license
 %defattr(0644,root,root,0755)
