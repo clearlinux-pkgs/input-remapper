@@ -7,7 +7,7 @@
 #
 Name     : input-remapper
 Version  : 2.0.1
-Release  : 7
+Release  : 8
 URL      : https://github.com/sezanzeb/input-remapper/archive/2.0.1/input-remapper-2.0.1.tar.gz
 Source0  : https://github.com/sezanzeb/input-remapper/archive/2.0.1/input-remapper-2.0.1.tar.gz
 Summary  : No detailed summary available
